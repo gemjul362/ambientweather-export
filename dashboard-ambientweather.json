@@ -1,0 +1,186 @@
+{
+  "dashboard": {
+    "id": null,
+    "uid": "ambientweather-dashboard",
+    "title": "Estaci\u00f3n Meteorol\u00f3gica - Datos Hist\u00f3ricos",
+    "timezone": "browser",
+    "schemaVersion": 38,
+    "version": 1,
+    "refresh": "10s",
+    "panels": [
+      {
+        "id": 1,
+        "title": "Temperatura (\u00b0F)",
+        "type": "timeseries",
+        "datasource": {
+          "type": "postgres",
+          "uid": "your_datasource_uid"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "targets": [
+          {
+            "format": "time_series",
+            "rawSql": "\n                SELECT\n                  timestamp AS \"time\",\n                  tempf AS \"Temperatura (\u00b0F)\"\n                FROM weather_data\n                WHERE $__timeFilter(timestamp)\n                ORDER BY timestamp\n            ",
+            "refId": "A",
+            "datasource": {
+              "type": "postgres",
+              "uid": "your_datasource_uid"
+            }
+          }
+        ],
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 12,
+          "y": 0
+        }
+      },
+      {
+        "id": 2,
+        "title": "Humedad (%)",
+        "type": "timeseries",
+        "datasource": {
+          "type": "postgres",
+          "uid": "your_datasource_uid"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "targets": [
+          {
+            "format": "time_series",
+            "rawSql": "\n                SELECT\n                  timestamp AS \"time\",\n                  humidity AS \"Humedad (%)\"\n                FROM weather_data\n                WHERE $__timeFilter(timestamp)\n                ORDER BY timestamp\n            ",
+            "refId": "A",
+            "datasource": {
+              "type": "postgres",
+              "uid": "your_datasource_uid"
+            }
+          }
+        ],
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 0,
+          "y": 9
+        }
+      },
+      {
+        "id": 3,
+        "title": "Velocidad Viento (mph)",
+        "type": "timeseries",
+        "datasource": {
+          "type": "postgres",
+          "uid": "your_datasource_uid"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "targets": [
+          {
+            "format": "time_series",
+            "rawSql": "\n                SELECT\n                  timestamp AS \"time\",\n                  windspeed AS \"Velocidad Viento (mph)\"\n                FROM weather_data\n                WHERE $__timeFilter(timestamp)\n                ORDER BY timestamp\n            ",
+            "refId": "A",
+            "datasource": {
+              "type": "postgres",
+              "uid": "your_datasource_uid"
+            }
+          }
+        ],
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 12,
+          "y": 9
+        }
+      },
+      {
+        "id": 4,
+        "title": "Radiaci\u00f3n Solar (W/m\u00b2)",
+        "type": "timeseries",
+        "datasource": {
+          "type": "postgres",
+          "uid": "your_datasource_uid"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "targets": [
+          {
+            "format": "time_series",
+            "rawSql": "\n                SELECT\n                  timestamp AS \"time\",\n                  solarRadiation AS \"Radiaci\u00f3n Solar (W/m\u00b2)\"\n                FROM weather_data\n                WHERE $__timeFilter(timestamp)\n                ORDER BY timestamp\n            ",
+            "refId": "A",
+            "datasource": {
+              "type": "postgres",
+              "uid": "your_datasource_uid"
+            }
+          }
+        ],
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 0,
+          "y": 18
+        }
+      },
+      {
+        "id": 5,
+        "title": "\u00cdndice UV",
+        "type": "timeseries",
+        "datasource": {
+          "type": "postgres",
+          "uid": "your_datasource_uid"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "targets": [
+          {
+            "format": "time_series",
+            "rawSql": "\n                SELECT\n                  timestamp AS \"time\",\n                  uv AS \"\u00cdndice UV\"\n                FROM weather_data\n                WHERE $__timeFilter(timestamp)\n                ORDER BY timestamp\n            ",
+            "refId": "A",
+            "datasource": {
+              "type": "postgres",
+              "uid": "your_datasource_uid"
+            }
+          }
+        ],
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 12,
+          "y": 18
+        }
+      }
+    ],
+    "templating": {
+      "list": []
+    },
+    "time": {
+      "from": "now-90d",
+      "to": "now"
+    }
+  },
+  "overwrite": true
+}

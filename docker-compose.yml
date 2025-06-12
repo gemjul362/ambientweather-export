@@ -1,0 +1,45 @@
+version: "3.9"
+services:
+  weather_db:
+    image: postgres:15
+    container_name: weather_db
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: weather
+    ports:
+      - "5432:5432"
+    volumes:
+      - weather_pgdata:/var/lib/postgresql/data
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      - weather_db
+
+  weather_etl:
+    build: .
+    container_name: weather_etl
+    depends_on:
+      - weather_db
+    environment:
+      - API_KEY=${API_KEY}
+      - APP_KEY=${APP_KEY}
+      - MAC_ADDRESS=${MAC_ADDRESS}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - ./data:/app/data
+      - ./insert_csv.py:/app/insert_csv.py
+      - ./main.py:/app/main.py
+
+volumes:
+  weather_pgdata:
+  grafana_data:
